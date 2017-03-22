@@ -3,26 +3,31 @@ import requests
 import grovepi
 import sys
 
-potentiometer = 2
-url = "http://10.10.900.72:3000/"
+touch_sensor = 4                           # DHT22 temp & humidity sensor is connected to port D8
+url = "http://10.10.98.173:3000/"
+
+grovepi.pinMode(touch_sensor,"INPUT")
 
 while True:
+  
+  try:
+    print(grovepi.digitalRead(touch_sensor))
 
-    try:
+    sleepval = grovepi.digitalRead(touch_sensor)
 
-        value = grovepi.analogRead(potentiometer)
 
-        print(value)
+    payload = { sleepval }
 
-        payload = { value }
-        
-        requests.post(url, data=payload)  
+    requests.post(sleepval, data=payload)    # write data
 
-        time.sleep(2.0)
+    time.sleep(2.0)           # 2 second delay
 
-    except IOError:
-        print "IOError, continuing"
-    except:
-        print "Unexpected error, continuing"
-        print "sys.exc_info()[0]: ", sys.exc_info()[0]
-    
+  except KeyboardInterrupt:
+    print "Terminating"
+    break
+  except IOError:
+    print "IOError, continuing"
+  except:
+    print "Unexpected error, continuing"
+    print "sys.exc_info()[0]: ", sys.exc_info()[0]
+
