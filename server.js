@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.post('/', function(req,res) {
+app.post('/echo', function(req,res) {
     console.log('post / =' + JSON.stringify(req.body));
     io.sockets.emit('echo', req.body);
     res.status(200).send('got it');
