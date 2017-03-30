@@ -24,9 +24,7 @@ while True:
             grovepi.digitalWrite(red_led, 0)
             
 
-
-
-            payload = { 'LED On' : sleep_val }
+            payload = { 'System On - Loading' }
 
             requests.post(url, data=payload)
     
@@ -45,6 +43,12 @@ while True:
         print "Off"
         grovepi.digitalWrite(green_led, 0)
         grovepi.digitalWrite(red_led, 1)
+        
+        payload = { 'System Off - Touch the Sensor to Begin' }
+
+        requests.post(url, data=payload)
+    
+        time.sleep(.1)
         
 
 
