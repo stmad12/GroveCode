@@ -4,22 +4,25 @@ import grovepi
 import sys
 
 touch_sensor = 4
-led = 5
+green_led = 5
+red_led = 3
 url = "http://10.10.89.3:3000/echo"
 
 grovepi.pinMode(touch_sensor,"INPUT")
-grovepi.pinMode(led, "OUTPUT")
+grovepi.pinMode(green_led, "OUTPUT")
+grovepi.pinMode(red_led, "OUTPUT")
 
 while True:
     
-    print(grovepi.digitalRead(touch_sensor))
     
     sleep_val = grovepi.digitalRead(touch_sensor)
 
     if sleep_val == 1:
         try:
-            print "led on"
-            grovepi.digitalWrite(led, 1)
+            print "On"
+            grovepi.digitalWrite(green_led, 1)
+            grovepi.digitalWrite(red_led, 0)
+            
 
 
 
@@ -39,8 +42,10 @@ while True:
             print "sys.exc_info()[0]: ", sys.exc_info()[0]
         
     else:
-        print "led off"
-        grovepi.digitalWrite(led, 0)
+        print "Off"
+        grovepi.digitalWrite(green_led, 0)
+        grovepi.digitalWrite(red_led, 1)
+        
 
 
         
