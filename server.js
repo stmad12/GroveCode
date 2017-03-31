@@ -33,9 +33,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use('/', express.static('..WebClient/'));
 
+<<<<<<< HEAD
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
+=======
+app.use('/', express.static('../WebClient/'));
+
+>>>>>>> 44435a5c4b36b72f5346359e0046e46d4484045e
 app.post('/', function(req,res) {
     console.log('post / =' + JSON.stringify(req.body));
     res.status(200).send('got it');
