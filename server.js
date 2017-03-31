@@ -1,7 +1,22 @@
+var Mongo = require('mongodb').MongoClient;
+const MONGO_URL = 'mongodb://localhost:27017/iot';
 var http = require('http');
 var socketio = require('socket.io');
 var bodyParser = require('body-parser');
 var express = require('express');
+
+Mongo.connect(MONGO_URL, function(err,db) {
+    if(err) {
+        // TODO handle error
+    }
+    Mongo.ops = {};
+    
+    Mongo.ops.find = function(collection, json,callback) {
+        db.collection(collection).find(json).toArray(function(err,docs){if (callback) callback(arr,docs);
+            });
+    };
+
+
 
 var app = express();
 var server = http.createServer(app);
